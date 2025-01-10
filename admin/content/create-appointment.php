@@ -187,7 +187,7 @@ $stmt->close();
                                 title: 'Success',
                                 text: data.message
                             }).then(() => {
-                                location.href = 'index.php?page=appointment-list';
+                                location.href = 'index.php?view=appointment-list';
                             });
                         } else {
                             Swal.fire({
