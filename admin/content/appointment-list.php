@@ -1,3 +1,33 @@
+<?php 
+
+require_once '../config/config.php';
+
+// Fetch all appointment data with associated client and service details
+$stmt = $conn->prepare("
+    SELECT 
+        appointments.id AS appointment_id,
+        clients.id AS client_id,
+        clients.first_name,
+        clients.last_name,
+        clients.mobile_number,
+        clients.status AS client_status,
+        GROUP_CONCAT(services.name SEPARATOR ', ') AS services,
+        appointments.appointment_date,
+        appointments.appointment_time,
+        appointments.notes,
+        appointments.status AS appointment_status
+    FROM appointments
+    INNER JOIN clients ON appointments.client_id = clients.id
+    INNER JOIN appointment_services ON appointments.id = appointment_services.appointment_id
+    INNER JOIN services ON appointment_services.service_id = services.id
+    GROUP BY appointments.id
+");
+
+$stmt->execute();
+$appointments = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+$stmt->close();
+?>
+
 <div class="card shadow mb-4">
     <div class="card-header">
         <h6 class="m-0 font-weight-bold text-primary">Appointment List</h6>
@@ -22,58 +52,133 @@
                 </thead>
 
                 <tbody>
+                    <?php foreach ($appointments as $appointment): ?>
                     <tr>
-                        <td>1</td>
-                        <td>101</td>
-                        <td>John</td>
-                        <td>1234567890</td>
-                        <td>Active</td>
-                        <td>Consultation</td>
-                        <td>2023-10-01</td>
-                        <td>10:00 AM</td>
-                        <td>No notes</td>
-                        <td>Confirmed</td>
-
-                        <td><button class="btn btn-primary btn-circle"><i class="fa fa-edit" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#exampleModal"></i></button></td>
+                        <td><?= htmlspecialchars($appointment['appointment_id']) ?></td>
+                        <td><?= htmlspecialchars($appointment['client_id']) ?></td>
+                        <td><?= htmlspecialchars($appointment['first_name'] . ' ' . $appointment['last_name']) ?></td>
+                        <td><?= htmlspecialchars($appointment['mobile_number']) ?></td>
+                        <td><?= $appointment['client_status'] ? 'Active' : 'Inactive' ?></td>
+                        <td><?= htmlspecialchars($appointment['services']) ?></td>
+                        <td><?= htmlspecialchars($appointment['appointment_date']) ?></td>
+                        <td><?= htmlspecialchars($appointment['appointment_time']) ?></td>
+                        <td><?= htmlspecialchars($appointment['notes']) ?></td>
+                        <td>
+                            <?= $appointment['appointment_status'] == 0 ? 'Pending' : ($appointment['appointment_status'] == 1 ? 'Confirmed' : 'Completed') ?>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary btn-circle" onclick="editAppointment(<?= $appointment['appointment_id'] ?>)">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                        </td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>102</td>
-                        <td>Jane</td>
-                        <td>0987654321</td>
-                        <td>Inactive</td>
-                        <td>Follow-up</td>
-                        <td>2023-10-02</td>
-                        <td>11:00 AM</td>
-                        <td>Follow-up needed</td>
-                        <td>Pending</td>
-                        <td><button class="btn btn-primary btn-circle"><i class="fa fa-edit" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#exampleModal"></i></button></td>
-                    </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
 
-
-
-
-
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="editAppointmentModal" tabindex="-1" aria-labelledby="editAppointmentLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <h5 class="modal-title" id="editAppointmentLabel">Edit Appointment</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                ...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <form id="editAppointmentForm">
+                    <input type="hidden" id="appointmentId" name="appointment_id">
+                    <div class="mb-3">
+                        <label for="editAppointmentDate" class="form-label">Date</label>
+                        <input type="date" class="form-control" id="editAppointmentDate" name="appointment_date" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editAppointmentTime" class="form-label">Time</label>
+                        <input type="time" class="form-control" id="editAppointmentTime" name="appointment_time" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editNotes" class="form-label">Notes</label>
+                        <textarea class="form-control" id="editNotes" name="notes" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editStatus" class="form-label">Status</label>
+                        <select class="form-control" id="editStatus" name="status">
+                            <option value="0">Pending</option>
+                            <option value="1">Confirmed</option>
+                            <option value="2">Completed</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+function editAppointment(appointmentId) {
+    // Fetch appointment data
+    fetch(`controller/get_appointment.php?appointment_id=${appointmentId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const appointment = data.appointment;
+                document.getElementById('appointmentId').value = appointment.id;
+                document.getElementById('editAppointmentDate').value = appointment.date;
+                document.getElementById('editAppointmentTime').value = appointment.time;
+                document.getElementById('editNotes').value = appointment.notes;
+                document.getElementById('editStatus').value = appointment.status;
+                new bootstrap.Modal(document.getElementById('editAppointmentModal')).show();
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: data.message
+                });
+            }
+        })
+        .catch(() => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Failed to load appointment details.'
+            });
+        });
+}
+
+document.getElementById('editAppointmentForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const formData = new FormData(this);
+
+    fetch('controller/update_appointment.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: data.message
+            }).then(() => location.reload());
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: data.message
+            });
+        }
+    })
+    .catch(() => {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Failed to update appointment.'
+        });
+    });
+});
+</script>

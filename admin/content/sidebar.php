@@ -50,6 +50,15 @@
     </li>
 
 
+    
+    <li class="nav-item active">
+        <a class="nav-link" href="index.php?view=service">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Service</span></a>
+    </li>
+
+
+
     <li class="nav-item active">
         <a class="nav-link" href="index.php?view=account-management">
             <i class="fas fa-fw fa-tachometer-alt"></i>

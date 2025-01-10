@@ -1,5 +1,6 @@
 <?php
 
+require_once '../config/config.php';
 
 $title = "Gabay Dental Clinic";
 
@@ -13,6 +14,11 @@ switch ($view) {
         $title = "Dashboard";
 
         $content = 'content/dashboard.php';
+        break;
+
+    case 'service':
+        $title = "Service";
+        $content = 'content/service.php';
         break;
 
     case 'appointment-list':
