@@ -216,66 +216,48 @@
                         <th>Occupation</th>
                         <th>Balance</th>
                         <th>Status</th>
-    
+
                         <th>Action</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>John</td>
-                        <td>Doe</td>
-                        <td>30</td>
-                        <td>Male</td>
-                        <td>(123) 456-7890</td>
-                        <td>john.doe@example.com</td>
-                        <td>123 Main St</td>
-                        <td>Engineer</td>
-                        <td>$1000</td>
-                        <td>Active</td>
-                        <td>
-                            <button class="btn btn-primary btn-circle" onclick="showUpdateModal(1, 'John', 'Doe', 30, 'Male', '(123) 456-7890', 'john.doe@example.com', '123 Main St', 'Engineer')"><i class="fa fa-edit" aria-hidden="true"></i></button>
-                            <button class="btn btn-danger btn-circle" onclick="showDeleteConfirmation(1)"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                            <button class="btn btn-info btn-circle" onclick="showViewModal(1, 'John', 'Doe', 30, 'Male', '(123) 456-7890', 'john.doe@example.com', '123 Main St', 'Engineer', '$1000', 'Active', 'path/to/id_picture.jpg')"><i class="fa fa-eye" aria-hidden="true"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jane</td>
-                        <td>Smith</td>
-                        <td>30</td>
-                        <td>Female</td>
-                        <td>(123) 456-7890</td>
-                        <td>jane.smith@example.com</td>
-                        <td>123 Main St</td>
-                        <td>Doctor</td>
-                        <td>$1000</td>
-                        <td>Active</td>
-                        <td>
-                            <button class="btn btn-primary btn-circle" onclick="showUpdateModal(2, 'Jane', 'Smith', 30, 'Female', '(123) 456-7890', 'jane.smith@example.com', '123 Main St', 'Doctor')"><i class="fa fa-edit" aria-hidden="true"></i></button>
-                            <button class="btn btn-danger btn-circle" onclick="showDeleteConfirmation(2)"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                            <button class="btn btn-info btn-circle" onclick="showViewModal(2, 'Jane', 'Smith', 30, 'Female', '(123) 456-7890', 'jane.smith@example.com', '123 Main St', 'Doctor', '$1000', 'Active', 'path/to/id_picture.jpg')"><i class="fa fa-eye" aria-hidden="true"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Emily</td>
-                        <td>Johnson</td>
-                        <td>30</td>
-                        <td>Female</td>
-                        <td>(123) 456-7890</td>
-                        <td>emily.johnson@example.com</td>
-                        <td>123 Main St</td>
-                        <td>Teacher</td>
-                        <td>$1000</td>
-                        <td>Active</td>
-                        <td>
-                            <button class="btn btn-primary btn-circle" onclick="showUpdateModal(3, 'Emily', 'Johnson', 30, 'Female', '(123) 456-7890', 'emily.johnson@example.com', '123 Main St', 'Teacher')"><i class="fa fa-edit" aria-hidden="true"></i></button>
-                            <button class="btn btn-danger btn-circle" onclick="showDeleteConfirmation(3)"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                            <button class="btn btn-info btn-circle" onclick="showViewModal(3, 'Emily', 'Johnson', 30, 'Female', '(123) 456-7890', 'emily.johnson@example.com', '123 Main St', 'Teacher', '$1000', 'Active', 'path/to/id_picture.jpg')"><i class="fa fa-eye" aria-hidden="true"></i></button>
-                        </td>
-                    </tr>
+ 
+
+                    <?php
+                    $sql = "SELECT id, first_name, last_name, age, sex, mobile_number, email, password, address, occupation, created_at, updated_at, status FROM clients";
+                    $result = $conn->query($sql);
+
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<tr>";
+                            echo "<td>" . $row['id'] . "</td>";
+                            echo "<td>" . $row['first_name'] . "</td>";
+                            echo "<td>" . $row['last_name'] . "</td>";
+                            echo "<td>" . $row['age'] . "</td>";
+                            echo "<td>" . $row['sex'] . "</td>";
+                            echo "<td>" . $row['mobile_number'] . "</td>";
+                            echo "<td>" . $row['email'] . "</td>";
+                            echo "<td>" . $row['address'] . "</td>";
+                            echo "<td>" . $row['occupation'] . "</td>";
+                            echo "<td>1000</td>";
+                            
+                            if ($row['status'] == 0) {
+                                echo "<td><span class='badge badge-success'>Active</span></td>";
+                            } else {
+                                echo "<td><span class='badge badge-danger'>Inactive</span></td>";
+                            }
+
+                            echo "<td>";
+                            echo "<button class='btn btn-primary btn-circle' onclick='showUpdateModal(" . $row['id'] . ", \"" . $row['first_name'] . "\", \"" . $row['last_name'] . "\", " . $row['age'] . ", \"" . $row['sex'] . "\", \"" . $row['mobile_number'] . "\", \"" . $row['email'] . "\", \"" . $row['address'] . "\", \"" . $row['occupation'] . "\")'><i class='fa fa-edit' aria-hidden='true'></i></button>";
+                            echo "<button class='btn btn-danger btn-circle' onclick='showDeleteConfirmation(" . $row['id'] . ")'><i class='fa fa-trash' aria-hidden='true'></i></button>";
+                            echo "<button class='btn btn-info btn-circle' onclick='showViewModal(" . $row['id'] . ", \"" . $row['first_name'] . "\", \"" . $row['last_name'] . "\", " . $row['age'] . ", \"" . $row['sex']. "\", \"" . $row['mobile_number'] . "\", \"" . $row['email'] . "\", \"" . $row['address'] . "\", \"" . $row['occupation'] . "\", \"$1000\", \"" . $row['status'] . "\", \"path/to/id_picture.jpg\")'><i class='fa fa-eye' aria-hidden='true'></i></button>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='11'>No records found</td></tr>";
+                    }
+                    ?>
+                  
                     <!-- Additional rows can be added here -->
                 </tbody>
             </table>
@@ -338,10 +320,10 @@
         `;
         document.getElementById('viewAccountDetails').innerHTML = details;
         document.getElementById('viewIdPicture').src = idPicture;
-        
+
         // Store the accountId in a global variable or directly pass it to the button
         document.getElementById('updateStatusButton').setAttribute('data-account-id', accountId);
-        
+
         $('#viewAccountModal').modal('show');
     }
 
