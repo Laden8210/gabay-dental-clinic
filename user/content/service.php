@@ -10,7 +10,7 @@ $stmt->close();
 ?>
 <div class="card shadow mb-4">
     <div class="card-header d-flex justify-content-between">
-        <h6 class="m-0 font-weight-bold text-primary">System Activity</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Service List</h6>
         <button class="btn btn-success" data-toggle="modal" data-target="#createServiceModal">Add Service</button>
     </div>
     <div class="card-body">

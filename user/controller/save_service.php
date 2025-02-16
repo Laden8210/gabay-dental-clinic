@@ -14,6 +14,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
+
+    $sql = "SELECT * FROM services WHERE name = ? AND description = ? ";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ss", $serviceName, $serviceDescription);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        echo json_encode(['success' => false, 'message' => 'Service already exists.']);
+        exit;
+    }
+
     try {
         
         $stmt = $conn->prepare("INSERT INTO services (name, description, price) VALUES (?, ?, ?)");

@@ -66,6 +66,19 @@ CREATE TABLE system_logs(
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
+
+CREATE TABLE payments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    appointment_id INT NOT NULL,
+    amount_paid DECIMAL(10,2) NOT NULL,
+    payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    payment_method VARCHAR(50) NOT NULL,
+    payment_proof VARCHAR(255),
+    status ENUM('Pending', 'Completed', 'Failed') DEFAULT 'Pending',
+    FOREIGN KEY (appointment_id) REFERENCES appointments(id) ON DELETE CASCADE
+);
+
+
 ALTER TABLE `gabay_dental_db`.`clients` 
 ADD COLUMN `profile_picture` VARCHAR(255) NULL AFTER `status`,
 ADD COLUMN `id_picture` VARCHAR(255) NULL AFTER `profile_picture`,

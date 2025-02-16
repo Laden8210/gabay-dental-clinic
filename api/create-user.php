@@ -43,8 +43,7 @@ function uploadFile($file, $uploadDir) {
         return null;
     }
 
-    $fileName = preg_replace("/[^a-zA-Z0-9.-]/", "_", basename($file["name"]));
-    $fileExt = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+    $fileExt = strtolower(pathinfo($file["name"], PATHINFO_EXTENSION));
 
     if (!in_array($fileExt, $allowedExtensions)) {
         return null;
@@ -62,15 +61,17 @@ function uploadFile($file, $uploadDir) {
         return null;
     }
 
+    // Generate unique file name
     $newFileName = uniqid() . "." . $fileExt;
     $filePath = $uploadDir . $newFileName;
 
     if (move_uploaded_file($file["tmp_name"], $filePath)) {
-        return $filePath;
+        return $newFileName; 
     }
 
     return null;
 }
+
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     try {
