@@ -49,6 +49,9 @@ if ($password !== $user['password']) {
     exit();
 }
 
+
+if(1 != $user['status'])
+
 echo json_encode([
     "status" => "success",
     "message" => "Login successful!",

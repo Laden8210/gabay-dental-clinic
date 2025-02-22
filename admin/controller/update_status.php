@@ -1,6 +1,11 @@
 <?php
 require_once '../../config/config.php';
 
+
+require_once '../../function/SaveActivityLog.php';
+
+$saveActivityLog = new SaveActivityLog();
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $appointment_id = $_POST["appointment_id"];
     $new_status = $_POST["status"];
@@ -48,6 +53,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   
         if ($balance > 0) {
             echo json_encode(["success" => false, "message" => "Cannot complete appointment! Balance remaining: $" . number_format($balance, 2)]);
+
+            $saveActivityLog->saveLog("Cannot complete appointment! Balance remaining: $" . number_format($balance, 2));
+
             exit;
         }
     }
@@ -57,8 +65,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if ($stmt->execute()) {
         echo json_encode(["success" => true, "message" => "Status updated successfully!"]);
+        $saveActivityLog->saveLog( "Status updated successfully!");
     } else {
         echo json_encode(["success" => false, "message" => "Database error!"]);
+        $saveActivityLog->saveLog( "Database error!");
     }
 
     $stmt->close();

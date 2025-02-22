@@ -2,6 +2,10 @@
 
 require_once '../../config/config.php';
 
+require_once '../../function/SaveActivityLog.php';
+
+$saveActivityLog = new SaveActivityLog();
+
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -24,6 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($result->num_rows > 0) {
         echo json_encode(['success' => false, 'message' => 'Service already exists.']);
+
+        $saveActivityLog->saveLog("Failed to save service. Error message: Service already exists.");
+
         exit;
     }
 
@@ -34,13 +41,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($stmt->execute()) {
             echo json_encode(['success' => true, 'message' => 'Service saved successfully.']);
+
+            $saveActivityLog->saveLog("Service saved successfully, Service Name: ". $serviceName . ", Service Description: " . $serviceDescription . ", Service Price: " . $servicePrice);
         } else {
             echo json_encode(['success' => false, 'message' => 'Failed to save service.']);
+
+            $saveActivityLog->saveLog("Failed to save service.");
         }
 
         $stmt->close();
     } catch (Exception $e) {
         echo json_encode(['success' => false, 'message' => 'Database error: ' . $e->getMessage()]);
+
+        $saveActivityLog->saveLog("Database error: " . $e->getMessage());
     }
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid request method.']);

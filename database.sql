@@ -20,9 +20,13 @@ CREATE TABLE clients (
     address TEXT NOT NULL,
     occupation VARCHAR(255) NOT NULL,
     status INT,
+    profile_picture VARCHAR(255),
+    id_picture VARCHAR(255),
+
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
 
 
 CREATE TABLE appointments (
@@ -77,9 +81,3 @@ CREATE TABLE payments (
     status ENUM('Pending', 'Completed', 'Failed') DEFAULT 'Pending',
     FOREIGN KEY (appointment_id) REFERENCES appointments(id) ON DELETE CASCADE
 );
-
-
-ALTER TABLE `gabay_dental_db`.`clients` 
-ADD COLUMN `profile_picture` VARCHAR(255) NULL AFTER `status`,
-ADD COLUMN `id_picture` VARCHAR(255) NULL AFTER `profile_picture`,
-ADD COLUMN `password` VARCHAR(255) NULL AFTER `email`;

@@ -5,6 +5,30 @@ require_once '../config/config.php';
 $title = "Gabay Dental Clinic";
 
 
+session_start();
+
+if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'Admin') {
+    header('Location: ../login.php');
+    exit;
+}
+
+
+$user_id = $_SESSION['user_id'];
+
+$sql = "SELECT * FROM users WHERE id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$user = null;
+if ($result->num_rows > 0) {
+    $user = $result->fetch_assoc();
+} else {
+    header('Location: ../login.php');
+    exit;
+}
+
 $view = isset($_GET['view']) ? $_GET['view'] : 'Home';
 
 $content = 'content/dashboard.php';

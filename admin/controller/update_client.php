@@ -1,6 +1,11 @@
 <?php
 require_once '../../config/config.php';
 
+require_once '../../function/SaveActivityLog.php';
+
+$saveActivityLog = new SaveActivityLog();
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = $_POST['id'];
     $first_name = $_POST['first_name'];
@@ -71,13 +76,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($stmt->execute()) {
             echo json_encode(["status" => "success", "message" => "Client updated successfully"]);
+            
+            $saveActivityLog->saveLog("Client updated successfully");
+            
+
+
         } else {
             echo json_encode(["status" => "error", "message" => "Update failed"]);
+
+            $saveActivityLog->saveLog( "Update failed");
         }
 
         $stmt->close();
     } else {
         echo json_encode(["status" => "error", "message" => "Query preparation failed"]);
+
+
+
+                $saveActivityLog->saveLog( "Query preparation failed");
+
     }
 
     $conn->close();

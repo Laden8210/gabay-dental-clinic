@@ -14,15 +14,28 @@
     <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
 
     <link href="../assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="../src/css/app.css" rel="stylesheet">
 
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
+
+    <script src="../src/js/app.js"></script>
 </head>
 
 <body>
 
+    <div id="preloader">
+        <div class="loader-container">
+            <img src="../src/img/logo11.png" alt="Lakbay Philippine Logo" class="loader-logo">
+            <p class="loader-text">Gabay Dental Clinic</p>
+        </div>
+    </div>
+
+
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <?php require_once 'content/sidebar.php'?>
+        <?php require_once 'content/sidebar.php' ?>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -32,7 +45,7 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <?php require_once 'content/topbar.php'?>
+                <?php require_once 'content/topbar.php' ?>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -40,11 +53,11 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800"> <?php echo $title?></h1>
+                        <h1 class="h3 mb-0 text-gray-800"> <?php echo $title ?></h1>
 
                     </div>
 
-                    <?php require_once $content?>
+                    <?php require_once $content ?>
 
                 </div>
                 <!-- /.container-fluid -->
@@ -56,7 +69,7 @@
 
 
     </div>
- 
+
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
@@ -75,7 +88,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="../logout.php">Logout</a>
                 </div>
             </div>
         </div>

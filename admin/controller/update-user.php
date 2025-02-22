@@ -1,6 +1,11 @@
 <?php
 require_once '../../config/config.php';
 
+
+require_once '../../function/SaveActivityLog.php';
+
+$saveActivityLog = new SaveActivityLog();
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $user_id = $_POST['user_id'];
@@ -19,6 +24,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     if (empty($first_name) || empty($last_name) || empty($email) || empty($password) || empty($role)) {
         echo json_encode(['status' => 'error', 'message' => 'All fields are required!']);
+
+        
+
         exit;
     }
 

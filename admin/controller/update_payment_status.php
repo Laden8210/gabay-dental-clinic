@@ -1,6 +1,11 @@
 <?php
 require_once '../../config/config.php';
 
+
+require_once '../../function/SaveActivityLog.php';
+
+$saveActivityLog = new SaveActivityLog();
+
 header("Content-Type: application/json");
 
 $data = json_decode(file_get_contents("php://input"), true);
@@ -17,6 +22,8 @@ $new_status = $data["status"];
 $valid_statuses = ["Pending", "Completed", "Failed"];
 if (!in_array($new_status, $valid_statuses)) {
     echo json_encode(["success" => false, "message" => "Invalid payment status."]);
+
+    $saveActivityLog->saveLog("Failed to update payment status. Error message: Invalid payment status.");
     exit;
 }
 
@@ -26,8 +33,12 @@ $stmt->bind_param("si", $new_status, $payment_id);
 
 if ($stmt->execute()) {
     echo json_encode(["success" => true, "message" => "Payment status updated successfully!"]);
+
+    $saveActivityLog->saveLog("Payment status updated successfully.");
 } else {
     echo json_encode(["success" => false, "message" => "Failed to update payment status."]);
+
+    $saveActivityLog->saveLog("Failed to update payment status.");
 }
 
 $stmt->close();

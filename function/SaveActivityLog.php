@@ -1,6 +1,5 @@
 <?php
 
-require '../config/config.php';
 
 session_start();
 class SaveActivityLog
@@ -18,8 +17,7 @@ class SaveActivityLog
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("is", $user_id, $activity);
         $stmt->execute();
-        $stmt->close();
-        $this->conn->close();
+
     }
 
     public function saveLog($activity){

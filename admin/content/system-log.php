@@ -20,9 +20,16 @@
 
                 <tbody>
                     <?php
-                    $sql = "SELECT * FROM system_logs";
+                    $sql = "SELECT system_logs.id AS log_id, 
+                  CONCAT(users.first_name, ' ', users.last_name) AS user, 
+                  system_logs.activity, 
+                  DATE_FORMAT(system_logs.created_at, '%Y-%m-%d') AS date, 
+                  DATE_FORMAT(system_logs.created_at, '%H:%i:%s') AS time
+           FROM system_logs
+           JOIN users ON system_logs.user_id = users.id
+           ORDER BY system_logs.created_at DESC";
                     $result = mysqli_query($conn, $sql);
-                    
+
                     if (mysqli_num_rows($result) > 0) {
                         while ($row = mysqli_fetch_assoc($result)) {
                             echo "<tr>

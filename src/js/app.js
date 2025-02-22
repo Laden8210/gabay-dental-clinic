@@ -1,5 +1,15 @@
-const hamBurger = document.querySelector(".toggle-btn");
 
-hamBurger.addEventListener("click", function () {
-  document.querySelector("#sidebar").classList.toggle("expand");
+
+$(window).on("load", () => {
+  setTimeout(() => {
+    $("#preloader").addClass("animate__animated animate__fadeOut preloader-hidden");
+    setTimeout(() => $("#preloader").hide(), 200);
+  }, 1000);
 });
+
+$(document).ready(() => {
+
+  initCarousel();
+
+});
+

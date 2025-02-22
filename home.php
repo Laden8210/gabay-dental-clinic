@@ -1,189 +1,212 @@
-<section class="text-center position-relative d-flex flex-column justify-content-center align-items-center p-5 bg-transparent" style="height: 100vh;">
-    <img src="src/img/logo11.png" alt="" class="img-fluid" style="max-width: 100%; height: auto; max-width: 400px;">
-    <div class="position-relative mt-4">
-        <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#appointmentModal">Make an Appointment</button>
-    </div>
-</section>
+<section id="hero" class="d-flex align-items-center bg-light">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1">
+                <h1 class="text-dark animate__animated  animate__fadeInDown">Gabay Dental Clinic</h1>
+                <h2 class="text-secondary"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat animi aut a consectetur labore, aperiam architecto. Maiores cupiditate ullam hic suscipit praesentium rerum atque nostrum, officiis nulla laudantium quaerat minus.</h2>
 
 
-<section class="py-5 service h-100" style="height: 100vh; background-color: rgba(255, 255, 255, 0.7);">
-    <div class="container text-center">
-        <h2 class="display-4 mb-4 text-info fw-semibold">OUR SERVICES</h2>
-        <h1 class="display-3 mb-5">Exceeding expectations, our services are a testament to dedication and excellence.</h1>
+                <div class="d-flex gap-2">
+                    <a href="" class="btn btn-primary rounded-pill"><i class="fa fa-download"
+                            aria-hidden="true"></i> Download Now</a>
 
-        <div class="row g-4">
-            <div class="col-md-4 col-12">
-                <div class="border-light rounded">
-                    <img src="src/img/initialConsultation.png" alt="Consultation" class="service-icon img-fluid">
-                    <div class="card-body">
-                        <h4 class="service-title">Consultation</h4>
-                        <p class="service-text">Our comprehensive consultation services involve thorough oral examinations and personalized treatment plans to address your dental concerns effectively.</p>
-                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
-
-<section class="py-5 service h-100" style="height: 100vh; background-color: rgba(255, 255, 255, 1); display: flex; justify-content: center; align-items: center;">
-    <div class="container text-center">
-        <h2 class="display-4 mb-4 text-info fw-semibold">OUR CLINIC</h2>
-        <h1 class="display-3 mb-5">Bringing joy to every smile, because your oral health matters.</h1>
-
-        <div class="row g-4 d-flex align-items-center justify-content-center">
-            <div class="col-md-6 d-flex justify-content-center">
-                <img src="src/img/clinic-img.png" alt="" class="img-fluid">
-            </div>
-
-            <div class="col-md-6">
-                <p>
-                    Elevate your dental experience at Gabay Dental Clinic, your gateway to optimal oral health and radiant smiles. Located at General Recarte St. Brgy. Poblacion Mariveles, Bataan, our clinic is a testament to precision, care, and innovation in dentistry. Our clinic welcomes you to a haven where your dental needs are met with unwavering dedication. Beyond providing exceptional clinical care, our clinic is designed to offer a soothing environment that transforms your dental visits into uplifting experiences. Come, contact us now, and be a part of our dental family, where your journey to a brighter smile begins!
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-<section class="py-5 service h-100" style="height: 100vh; background-color: rgba(255, 255, 255, 1); display: flex; justify-content: center; align-items: center;">
-    <div class="container text-center">
-        <h2 class="display-4 mb-4 text-info fw-semibold">CONTACT</h2>
-        <h1 class="display-3 mb-5">Bringing joy to every smile, because your oral health matters.</h1>
-
-        <div class="row g-4 d-flex align-items-center">
-
-            <div class="col-md-6 col-12 d-flex justify-content-center flex-column align-items-center">
-                <div class="row w-100">
-                    <div class="col-12 col-md-4 mb-3  justify-content-center align-items-center">
-                        <img src="src/img/location.png" alt="" class="contact-icon mb-2" style="max-width: 50px;">
-                        <p>90 General Recarte St., Brgy Poblacion, Mariveles, Bataan, Philippines</p>
-                    </div>
-                    <div class="col-12 col-md-4 mb-3 justify-content-center align-items-center">
-                        <img src="src/img/location.png" alt="" class="contact-icon mb-2" style="max-width: 50px;">
-                        <p>+63 (947) 582 0065</p>
-                    </div>
-                    <div class="col-12 col-md-4 mb-3  justify-content-center align-items-center">
-                        <img src="src/img/location.png" alt="" class="contact-icon mb-2" style="max-width: 50px;">
-                        <p>Mon-Wed 9:00AM - 5:00PM <br> Sat-Sun 9:00AM - 5:00PM</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-12">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3863.89653150632!2d120.4825840737604!3d14.433125981157696!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33961f5fcdbe68b5%3A0xb1c8cdb5385d4080!2sGabay%20Dental%20Clinic!5e0!3m2!1sen!2sph!4v1719472296197!5m2!1sen!2sph" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-
-<div class="modal fade" id="appointmentModal" tabindex="-1" aria-labelledby="appointmentModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="appointmentModalLabel">Select Patient Type</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row justify-content-center">
-                    <div class="col-12 ">
-                        <button class="btn btn-primary btn-lg w-100 mb-3" data-bs-toggle="modal" data-bs-target="#oldPatientModal" data-bs-dismiss="modal">Old Patient</button>
-                    </div>
-                    <div class="col-12 ">
-                        <button class="btn btn-secondary btn-lg w-100 mb-3" data-bs-toggle="modal" data-bs-target="#newPatientModal" data-bs-dismiss="modal">New Patient</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="modal fade" id="oldPatientModal" tabindex="-1" aria-labelledby="oldPatientModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="oldPatientModalLabel">Old Patient Login</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="/login" method="POST">
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Login</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" id="newPatientModal" tabindex="-1" aria-labelledby="newPatientModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="newPatientModalLabel">New Patient Signup</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action="/signup" method="POST">
-                    <div class="mb-3">
-                        <label for="firstName" class="form-label">First Name</label>
-                        <input type="text" class="form-control" id="firstName" name="firstName" placeholder="e.g. Juan" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="lastName" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" id="lastName" name="lastName" placeholder="e.g. Dela Cruz" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="age" class="form-label">Age</label>
-                        <input type="number" class="form-control" id="age" name="age" placeholder="e.g. 18" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="sex" class="form-label">Sex</label>
-                        <select class="form-select" id="sex" name="sex" required>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="mobileNumber" class="form-label">Mobile Number</label>
-                        <input type="text" class="form-control" id="mobileNumber" name="mobileNumber" placeholder="e.g. 09**-****-***" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="e.g. sample@gmail.com" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="address" class="form-label">Address</label>
-                        <input type="text" class="form-control" id="address" name="address" placeholder="e.g. National Highway, Sta Rita, Batangas City, Batangas, Philippines" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="occupation" class="form-label">Occupation</label>
-                        <input type="text" class="form-control" id="occupation" name="occupation" placeholder="e.g. Teacher" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="passwordSignup" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="passwordSignup" name="password" required>
-                    </div>
-                    <div class="mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="certificationCheck" required>
-                            <label class="form-check-label fs-6" for="certificationCheck">
-                                Before I proceed to checking time availability of my appointment request, I hereby certify that the information provided is complete, true, and correct to the best of my knowledge.
-                            </label>
+            <div class="col-lg-5 order-1 order-lg-2 hero-img d-flex justify-content-center align-items-center">
+                <div class="position-relative">
+                    <!-- Overlayed Card -->
+                    <div class="card position-absolute shadow-lg"
+                        style="z-index: 2; transform: translate(30px, 20px); top: 30px;
+                    right: 150px; overflow: hidden;">
+                        <div class="card-body p-2">
+                            <img src="assets/img/mobile-login.png" alt="" width="200px"
+                                class="overlay-img">
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Sign Up</button>
-                </form>
+
+                    <!-- Base Card -->
+                    <div class="card shadow-sm overflow-hidden" style="z-index: 1;">
+                        <div class="card-body p-2">
+                            <img src="assets/img/mobile-login.png" alt="" width="200px"
+                                class="overlay-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <style>
+                .overlay-img {
+                    transition: transform 0.3s ease-in-out;
+                }
+
+                .overlay-img:hover {
+                    transform: scale(1.1);
+                }
+            </style>
+
+        </div>
+    </div>
+
+</section>
+
+<!-- Features Section -->
+<section id="features" class="py-5 bg-white">
+    <div class="container text-center">
+        <h2 class="text-primary">App Features</h2>
+        <div class="row mt-4">
+            <div class="col-lg-4">
+                <div class="card p-3 shadow-sm">
+                    <i class="fas fa-wifi fa-3x text-primary"></i>
+                    <h5 class="mt-3">Offline Mode</h5>
+                    <p class="text-muted">Supports offline attendance tracking for areas with low internet connectivity.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card p-3 shadow-sm">
+                    <i class="fa fa-sync fa-3x text-primary"></i>
+                    <h5 class="mt-3">Auto-Sync</h5>
+                    <p class="text-muted">Attendance data syncs automatically once the device is online.</p>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="card p-3 shadow-sm">
+                    <i class="fa fa-file-alt fa-3x text-primary"></i>
+                    <h5 class="mt-3">Reports & Insights</h5>
+                    <p class="text-muted">Generate real-time attendance reports for better monitoring.</p>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</section>
+
+
+<section id="about" class="py-5 bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <img src="assets/img/mobile-login.png" alt="About System" class="img-fluid rounded shadow" width="240px">
+            </div>
+            <div class="col-lg-6">
+                <h2 class="text-primary">About the System</h2>
+                <p class="text-muted">
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor libero vel tenetur totam, quaerat consequatur vitae fugiat excepturi explicabo aperiam voluptate necessitatibus facere dicta consectetur possimus minima fuga impedit perspiciatis!
+                </p>
+                <p class="text-muted">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus iusto provident id odit? Dolorem libero minus, quas voluptatum ex adipisci praesentium culpa ab delectus laborum magnam officia porro veritatis omnis.
+                </p>
+                <a href="#" class="btn btn-outline-primary">Learn More</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- Contact Us -->
+
+<section id="contact" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-primary text-center">Contact Us</h2>
+        <p class="text-muted text-center">Need help? Get in touch with us!</p>
+
+        <div class="row mt-4">
+            <!-- Left Side: Contact Information -->
+            <div class="col-lg-6">
+                <div class="p-4  rounded">
+                    <h4 class="text-primary">Get in Touch</h4>
+                    <p class="text-muted">Feel free to reach out to us through any of the channels below.</p>
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fa fa-phone fa-2x text-primary me-3"></i>
+                        <p class="mb-0">+63 912 345 6789</p>
+                    </div>
+                    <div class="d-flex align-items-center mb-3">
+                        <i class="fa fa-envelope fa-2x text-primary me-3"></i>
+                        <p class="mb-0">support@dental.com</p>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i class="fa fa-map-marker-alt fa-2x text-primary me-3"></i>
+                        <p class="mb-0">General Santos City, Philippines</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Contact Form -->
+            <div class="col-lg-6">
+                <div class="p-4 bg-white shadow-sm rounded">
+                    <h4 class="text-primary">Send Us a Message</h4>
+                    <form method="POST">
+               
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input type="text" name="name" id="name" class="form-control" placeholder="Your Name" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" name="email" id="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Your Message</label>
+                            <textarea name="message" id="message" class="form-control" rows="4" placeholder="Your Message" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- Footer Section -->
+<footer class="bg-light text-light py-4">
+    <div class="container">
+        <div class="row">
+            <!-- About -->
+            <div class="col-lg-4">
+                <h5 class="text-primary">About Gabay Dental Clinic</h5>
+                <p class="text-muted">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio dolores quasi ipsam unde laudantium illum, soluta sed? Corporis cumque tempore suscipit maxime consequatur repellat eaque explicabo, repellendus harum, voluptatum saepe!
+                </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="col-lg-4">
+                <h5 class="text-primary">Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#hero" class="text-dark">Home</a></li>
+                    <li><a href="#features" class="text-dark">Features</a></li>
+                    <li><a href="#how-it-works" class="text-dark">How It Works</a></li>
+                    <li><a href="#contact" class="text-dark">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="col-lg-4">
+                <h5 class="text-primary">Contact Us</h5>
+                <p class="mb-1"><i class="fa fa-phone me-2"></i> +63 912 345 6789</p>
+                <p class="mb-1"><i class="fa fa-envelope me-2"></i> gabay-dental@gmail.com</p>
+                <p><i class="fa fa-map-marker-alt me-2"></i> Philippines</p>
+
+                <!-- Social Media Links -->
+                <div class="mt-3">
+                    <a href="#" class="text-light me-3"><i class="fab fa-facebook fa-2x"></i></a>
+                    <a href="#" class="text-light me-3"><i class="fab fa-twitter fa-2x"></i></a>
+                    <a href="#" class="text-light"><i class="fab fa-instagram fa-2x"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="text-center mt-4">
+            <p class="mb-0">&copy; 2025 Gabay Dental Clinic. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>

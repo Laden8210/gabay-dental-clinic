@@ -1,6 +1,11 @@
 <?php
 require_once '../../config/config.php';
 
+
+require_once '../../function/SaveActivityLog.php';
+
+$saveActivityLog = new SaveActivityLog();
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $appointment_id = $_POST["appointment_id"];
     $amount_paid = $_POST["amount_paid"];
@@ -10,6 +15,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (!is_numeric($amount_paid) || $amount_paid <= 0) {
         echo json_encode(["success" => false, "message" => "Invalid payment amount!"]);
+
+        $saveActivityLog->saveLog("Failed to process payment for appointment ID: $appointment_id. Error message: Invalid payment amount.");
+
         exit;
     }
 
@@ -32,6 +40,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (($total_paid + $amount_paid) > $total_due) {
         echo json_encode(["success" => false, "message" => "Payment exceeds the total amount due!"]);
+
+        $saveActivityLog->saveLog("Failed to process payment for appointment ID: $appointment_id. Error message: Payment exceeds the total amount due.");
         exit;
     }
 
@@ -43,6 +53,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         if (!in_array(strtolower($file_extension), $allowed_extensions)) {
             echo json_encode(["success" => false, "message" => "Invalid file type!"]);
+
+            $saveActivityLog->saveLog("Failed to process payment for appointment ID: $appointment_id. Error message: Invalid file type.");
             exit;
         }
 
@@ -51,6 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $target_file = $target_dir . $encrypted_name;
 
         if (move_uploaded_file($_FILES["payment_proof"]["tmp_name"], $target_file)) {
+            
             $payment_proof = $encrypted_name;
         } else {
             echo json_encode(["success" => false, "message" => "File upload failed!"]);
@@ -64,8 +77,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if ($stmt->execute()) {
         echo json_encode(["success" => true]);
+
+        $saveActivityLog->saveLog("Payment processed successfully for appointment ID: $appointment_id");
     } else {
         echo json_encode(["success" => false, "message" => "Database error!"]);
+        $saveActivityLog->saveLog("Failed to process payment for appointment ID: $appointment_id. Error message: Database error.");
     }
 
     $stmt->close();

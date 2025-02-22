@@ -2,6 +2,9 @@
 
 require_once '../../config/config.php';
 
+require_once '../../function/SaveActivityLog.php';
+
+$saveActivityLog = new SaveActivityLog();
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -21,6 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!$appointmentDate || !$appointmentTime || empty($services)) {
         echo json_encode(['success' => false, 'message' => 'Appointment date, time, and services are required.']);
+        
+        $saveActivityLog->saveLog("Failed to save appointment. Error message: Appointment date, time, and services are required.");
+
         exit;
     }
 
@@ -31,6 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!$clientId) {
             if (!$firstName || !$lastName || !$age || !$sex || !$mobileNumber || !$email || !$address || !$occupation) {
                 echo json_encode(['success' => false, 'message' => 'All client details are required for new clients.']);
+
+                $saveActivityLog->saveLog("Failed to save appointment. Error message: All client details are required for new clients.");
                 exit;
             }
 
@@ -67,11 +75,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'message' => 'Appointment saved successfully.',
 
         ]);
+
+        $saveActivityLog->saveLog("Appointment saved successfully for client ID: $clientId");
     } catch (Exception $e) {
         $conn->rollback();
         echo json_encode(['success' => false, 'message' => 'Failed to save appointment: ' . $e->getMessage()]);
+
+        $saveActivityLog->saveLog("Failed to save appointment for client ID: $clientId. Error message: " . $e->getMessage());
     }
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
+
+    $saveActivityLog->saveLog("Failed to save appointment. Error message: Invalid request method.");
 }
 ?>

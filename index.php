@@ -13,6 +13,10 @@ switch ($view) {
         $content = 'home.php';
         break;
 
+    case 'login':
+        $content = 'login.php';
+        break;
+
 
 
     default:
