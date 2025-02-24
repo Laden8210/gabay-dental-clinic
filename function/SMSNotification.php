@@ -11,8 +11,7 @@ $currentTime = date('H:i:s');
 $query = "SELECT a.id, c.mobile_number, c.first_name, a.appointment_date, a.appointment_time 
           FROM appointments a
           JOIN clients c ON a.client_id = c.id
-          WHERE a.status = 0 
-          AND a.appointment_date = DATE_ADD(?, INTERVAL 1 DAY)";
+          WHERE a.status = 0";
 
 $stmt = $conn->prepare($query);
 $stmt->bind_param("s", $currentDate);
