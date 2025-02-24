@@ -1,5 +1,5 @@
 <?php
-include 'config/config.php';
+include '../config/config.php';
 include 'SMS.php';
 
 $sms = new SMS();
