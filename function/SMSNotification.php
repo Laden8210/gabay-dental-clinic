@@ -44,7 +44,7 @@ while ($row = $result->fetch_assoc()) {
     // Write log to file
     file_put_contents($logFile, $logMessage, FILE_APPEND);
 }
-
+$sms->sendSMS("09559786019", "SMS Notification has been sent successfully.");
 $stmt->close();
 $conn->close();
 ?>
