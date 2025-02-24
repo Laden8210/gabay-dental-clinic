@@ -4,7 +4,8 @@
         <div class="row">
             <div class="col-lg-7 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1">
                 <h1 class="text-dark animate__animated  animate__fadeInDown">Gabay Dental Clinic</h1>
-                <h2 class="text-secondary"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat animi aut a consectetur labore, aperiam architecto. Maiores cupiditate ullam hic suscipit praesentium rerum atque nostrum, officiis nulla laudantium quaerat minus.</h2>
+                <h2 class="text-secondary">Bringing joy to every smile, because your oral
+                health matters.</h2>
 
 
                 <div class="d-flex gap-2">
@@ -91,7 +92,7 @@
             <div class="col-lg-6">
                 <h2 class="text-primary">About the System</h2>
                 <p class="text-muted">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor libero vel tenetur totam, quaerat consequatur vitae fugiat excepturi explicabo aperiam voluptate necessitatibus facere dicta consectetur possimus minima fuga impedit perspiciatis!
+                Elevate your dental experience at Gabay Dental Clinic, your gateway to optimal oral health and radiant smiles. Located at General Recarte St. Brgy. Poblacion Mariveles, Bataan our clinic is a testament to precision, care, and innovation in dentistry. Our clinic welcomes you to a haven where your dental needs are met with unwavering dedication. Beyond providing exceptional clinical care, our clinic is designed to offer a soothing environment that transforms your dental visits into uplifting experiences. Come, contact us now, and be a part of our dental family, where your journey to a brighter smile begins!
                 </p>
                 <p class="text-muted">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus iusto provident id odit? Dolorem libero minus, quas voluptatum ex adipisci praesentium culpa ab delectus laborum magnam officia porro veritatis omnis.

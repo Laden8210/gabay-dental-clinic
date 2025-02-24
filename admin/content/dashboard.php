@@ -137,7 +137,7 @@ while ($row = $result_age->fetch_assoc()) {
                         <div class="h5 mb-0 font-weight-bold text-gray-800">₱<?= number_format($grossIncome, 2) ?></div>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                        <i class="fas fa-money-bill-wave-alt  text-gray-300"></i>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,8 @@
 <?php
 require_once '../../config/config.php';
+require_once '../../function/SaveActivityLog.php';
+
+$saveActivityLog = new SaveActivityLog();
 
 $query = "
     SELECT 
@@ -13,12 +16,22 @@ $query = "
 $result = $conn->query($query);
 $data = [];
 
-while($row = $result->fetch_assoc()) {
-    $data[] = [
-        'service_name' => $row['service_name'],
-        'service_count' => $row['service_count']
-    ];
+if ($result) {
+    while ($row = $result->fetch_assoc()) {
+        $data[] = [
+            'service_name' => $row['service_name'],
+            'service_count' => $row['service_count']
+        ];
+    }
+
+    echo json_encode($data);
+
+    $recordCount = count($data);
+    $saveActivityLog->saveLog("Fetched service statistics. Records retrieved: $recordCount.");
+} else {
+    echo json_encode(['error' => 'Failed to fetch service statistics.']);
+    $saveActivityLog->saveLog("Failed to fetch service statistics. Database error: " . $conn->error);
 }
 
-echo json_encode($data);
+$conn->close();
 ?>

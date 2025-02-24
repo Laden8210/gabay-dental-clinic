@@ -1,0 +1,41 @@
+<?php
+include 'config/config.php';
+include 'SMS.php';
+
+$sms = new SMS();
+
+
+$currentDate = date('Y-m-d');
+$currentTime = date('H:i:s');
+
+$query = "SELECT a.id, c.mobile_number, c.first_name, a.appointment_date, a.appointment_time 
+          FROM appointments a
+          JOIN clients c ON a.client_id = c.id
+          WHERE a.status = 0 
+          AND a.appointment_date = DATE_ADD(?, INTERVAL 1 DAY)";
+
+$stmt = $conn->prepare($query);
+$stmt->bind_param("s", $currentDate);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+while ($row = $result->fetch_assoc()) {
+    $phoneNumber = $row['mobile_number'];
+    $clientName = $row['first_name'];
+    $appointmentDate = $row['appointment_date'];
+    $appointmentTime = $row['appointment_time'];
+
+    $message = "Hello $clientName, this is a reminder for your dental appointment on $appointmentDate at $appointmentTime. Please confirm or contact us if you need to reschedule.";
+
+    $response = $sms->sendSMS($phoneNumber, $message);
+
+    if ($response && $response['status'] == 'success') {
+        echo "SMS sent successfully to $phoneNumber\n";
+    } else {
+        echo "Failed to send SMS to $phoneNumber\n";
+    }
+}
+
+$stmt->close();
+$conn->close();
+?>
