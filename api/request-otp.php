@@ -16,7 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($input['phone_number'])) {
         exit;
     }
 
-    // Generate OTP
     $otp = rand(100000, 999999);
     $message = "Your OTP code is: $otp. This code is valid for 5 minutes.";
 
@@ -25,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($input['phone_number'])) {
 
     if ($response && isset($response['message']) && $response['message'] == 'SMS sent successfully') {
 
-        // Store OTP and expiry in session
+     
         $_SESSION['otp'] = $otp;
         $_SESSION['otp_expiry'] = time() + 300;
 

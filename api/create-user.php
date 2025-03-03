@@ -21,11 +21,11 @@ function isValidEmail($email) {
 }
 
 function isValidMobileNumber($number) {
-    return preg_match('/^09[0-9]{9}$/', $number); // Philippine mobile number format
+    return preg_match('/^09[0-9]{9}$/', $number);
 }
 
 function isValidName($name) {
-    return preg_match('/^[A-Za-z\s\-]+$/', $name); // Only letters, spaces, and hyphens allowed
+    return preg_match('/^[A-Za-z\s\-]+$/', $name); 
 }
 
 function isValidAge($age) {
@@ -97,6 +97,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $address = cleanInput($_POST["address"]);
         $occupation = cleanInput($_POST["occupation"]);
 
+        $id_type = cleanInput($_POST["id_type"]);
+
         // **Validation**
         if (empty($firstName) || empty($lastName) || empty($age) || empty($sex) || empty($mobileNumber) || empty($email) || empty($password) || empty($address) || empty($occupation)) {
             echo json_encode(["status" => "error", "message" => "All fields are required!"]);
@@ -156,8 +158,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
         // Insert user into database
-        $stmt = $conn->prepare("INSERT INTO clients (first_name, last_name, age, sex, mobile_number, email, password, address, occupation, profile_picture, id_picture, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)");
-        $stmt->bind_param("ssissssssss", $firstName, $lastName, $age, $sex, $mobileNumber, $email, $password, $address, $occupation, $profilePicture, $idPicture);
+        $stmt = $conn->prepare("INSERT INTO clients (first_name, last_name, age, sex, mobile_number, email, password, address, occupation, profile_picture, id_picture, status, id_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)");
+        $stmt->bind_param("ssisssssssss", $firstName, $lastName, $age, $sex, $mobileNumber, $email, $password, $address, $occupation, $profilePicture, $idPicture, $id_type);
 
         if ($stmt->execute()) {
             echo json_encode(["status" => "success", "message" => "Registration successful!"]);

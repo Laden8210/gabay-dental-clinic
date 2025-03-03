@@ -50,12 +50,19 @@ if ($password !== $user['password']) {
 }
 
 
-if(1 != $user['status'])
+if(1 != $user['status']){
 
-echo json_encode([
-    "status" => "success",
-    "message" => "Login successful!",
-    "user_id" => $user['id']
-]);
+    echo json_encode([
+        "status" => "success",
+        "message" => "Login successful!",
+        "user_id" => $user['id']
+    ]);
+}else{
+    echo json_encode(
+        ["status" => "error",
+        "message" => "Account is not active"]
+    );
+}
+
 exit();
 ?>
