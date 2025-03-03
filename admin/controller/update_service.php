@@ -8,14 +8,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $serviceDescription = trim($_POST['service_description'] ?? '');
     $servicePrice = $_POST['service_price'] ?? '';
 
-    // Input validation
+
     if (!$serviceId || empty($serviceName) || empty($serviceDescription) || !is_numeric($servicePrice) || floatval($servicePrice) < 0) {
         http_response_code(400);
         echo json_encode(['success' => false, 'message' => 'Invalid or incomplete data provided.']);
         exit;
     }
 
-    // Prepare statement
     if ($stmt = $conn->prepare("UPDATE services SET name = ?, description = ?, price = ? WHERE id = ?")) {
         $stmt->bind_param('ssdi', $serviceName, $serviceDescription, $servicePrice, $serviceId);
 

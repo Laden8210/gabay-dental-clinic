@@ -2,16 +2,15 @@
 header("Content-Type: application/json; charset=UTF-8");
 require '../config/config.php';
 
-// Ensure the request method is POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(['status' => 'error', 'message' => 'Invalid request method']);
     exit;
 }
 
-// Get JSON input
+
 $input = json_decode(file_get_contents("php://input"), true);
 
-// Validate JSON input
+
 if (!isset($input['client_id'])) {
     echo json_encode(['status' => 'error', 'message' => 'Invalid client ID']);
     exit;
@@ -19,7 +18,6 @@ if (!isset($input['client_id'])) {
 
 $client_id = (int) $input['client_id'];
 
-// Query to fetch appointments and services
 $sql = "
 SELECT 
     a.id AS appointment_id, 
@@ -75,13 +73,12 @@ while ($row = $result->fetch_assoc()) {
 
         $total_current_appointments++;
 
-        // Update latest appointment date
         if (is_null($latest_appointment_date) || $row['appointment_date'] > $latest_appointment_date) {
             $latest_appointment_date = $row['appointment_date'];
         }
     }
 
-    // Add service details if exists
+
     if (!is_null($row['service_id'])) {
         $appointments[$appointment_id]['services'][] = [
             'service_id' => $row['service_id'],
@@ -93,10 +90,10 @@ while ($row = $result->fetch_assoc()) {
         $appointments[$appointment_id]['total_service_amount'] += $row['amount'];
     }
 
-    // Calculate balance for this appointment
+
     $appointments[$appointment_id]['balance'] = $appointments[$appointment_id]['total_service_amount'] - $appointments[$appointment_id]['total_paid'];
 
-    // Update total balance
+
     $total_balance += $appointments[$appointment_id]['balance'];
 }
 
@@ -106,12 +103,11 @@ $conn->close();
 if (!empty($appointments)) {
     echo json_encode([
         'status' => 'success',
-        'data' => array_values($appointments),
-        'summary' => [
-            'total_balance' => $total_balance,
-            'total_current_appointments' => $total_current_appointments,
-            'latest_appointment_date' => $latest_appointment_date
-        ]
+
+        'total_balance' => $total_balance,
+        'total_current_appointments' => $total_current_appointments,
+        'latest_appointment_date' => $latest_appointment_date
+
     ]);
 } else {
     echo json_encode(['status' => 'error', 'message' => 'No appointments found']);

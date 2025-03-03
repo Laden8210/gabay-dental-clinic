@@ -86,8 +86,8 @@
                     <div class="form-group">
                         <label for="role">Role</label>
                         <select class="form-control" id="role" name="role" required>
-                            <option value="admin">Admin</option>
-                            <option value="employee">Employee</option>
+                            <option value="Admin">Admin</option>
+                            <option value="Employee">Employee</option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary" name="add_account">Add Account</button>
@@ -143,44 +143,43 @@
 
 
 <script>
+    document.getElementById('editUserAccountForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(this);
 
-document.getElementById('editUserAccountForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const formData = new FormData(this);
-
-    fetch('controller/update-user.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.status === 'success') {
-                Swal.fire({
-                    title: 'Success!',
-                    text: data.message,
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                }).then(() => {
-                    location.reload();
-                });
-            } else {
+        fetch('controller/update-user.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: data.message,
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        location.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: data.message,
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            })
+            .catch(error => {
                 Swal.fire({
                     title: 'Error!',
-                    text: data.message,
+                    text: 'There was an issue with the request. Please try again later.',
                     icon: 'error',
                     confirmButtonText: 'OK'
                 });
-            }
-        })
-        .catch(error => {
-            Swal.fire({
-                title: 'Error!',
-                text: 'There was an issue with the request. Please try again later.',
-                icon: 'error',
-                confirmButtonText: 'OK'
             });
-        });
-});
+    });
     document.getElementById('createUserAccountForm').addEventListener('submit', function(event) {
         event.preventDefault();
         const formData = new FormData(this);
@@ -234,11 +233,11 @@ document.getElementById('editUserAccountForm').addEventListener('submit', functi
     }
 
     function populateEditModal(id) {
-      
+
         fetch('controller/get-user-data.php?id=' + id)
             .then(response => response.json())
             .then(data => {
-        
+
                 document.getElementById('edit_user_id').value = data.id;
                 document.getElementById('edit_first_name').value = data.first_name;
                 document.getElementById('edit_last_name').value = data.last_name;
@@ -261,11 +260,11 @@ document.getElementById('editUserAccountForm').addEventListener('submit', functi
         }).then((result) => {
             if (result.isConfirmed) {
                 fetch('controller/delete-user.php?delete=' + id)
-                    .then(response => response.json()) 
+                    .then(response => response.json())
                     .then(data => {
                         if (data.status === 'success') {
                             Swal.fire('Deleted!', data.message, 'success');
-                            window.location.reload(); 
+                            window.location.reload();
                         } else {
                             Swal.fire('Error!', data.message, 'error');
                         }

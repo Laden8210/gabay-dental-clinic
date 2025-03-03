@@ -7,9 +7,3 @@ $(window).on("load", () => {
   }, 1000);
 });
 
-$(document).ready(() => {
-
-  initCarousel();
-
-});
-

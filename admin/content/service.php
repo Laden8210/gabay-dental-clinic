@@ -1,13 +1,13 @@
 <?php
-
 require_once '../config/config.php';
 
+// Fetch data
 $stmt = $conn->prepare("SELECT * FROM services");
 $stmt->execute();
 $services = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 $stmt->close();
-
 ?>
+
 <div class="card shadow mb-4">
     <div class="card-header d-flex justify-content-between">
         <h6 class="m-0 font-weight-bold text-primary">Service List</h6>
@@ -35,8 +35,20 @@ $stmt->close();
                                 <td><?php echo htmlspecialchars($service['description']); ?></td>
                                 <td><?php echo htmlspecialchars($service['price']); ?></td>
                                 <td>
-                                    <button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#updateServiceModal" data-id="<?php echo $service['id']; ?>" data-name="<?php echo $service['name']; ?>" data-description="<?php echo $service['description']; ?>" data-price="<?php echo $service['price']; ?>">Update</button>
-                                    <button class="btn btn-danger btn-sm" onclick="deleteService(<?php echo $service['id']; ?>)">Delete</button>
+                                    <!-- UPDATE BUTTON -->
+                                    <button class="btn btn-warning btn-sm"
+                                            data-toggle="modal"
+                                            data-target="#updateServiceModal"
+                                            data-id="<?php echo $service['id']; ?>"
+                                            data-name="<?php echo htmlspecialchars($service['name']); ?>"
+                                            data-description="<?php echo htmlspecialchars($service['description']); ?>"
+                                            data-price="<?php echo $service['price']; ?>">
+                                        Update
+                                    </button>
+                                    <!-- DELETE BUTTON -->
+                                    <button class="btn btn-danger btn-sm" onclick="deleteService(<?php echo $service['id']; ?>)">
+                                        Delete
+                                    </button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -51,7 +63,7 @@ $stmt->close();
     </div>
 </div>
 
-<!-- Create Service Modal -->
+<!-- CREATE SERVICE MODAL -->
 <div class="modal fade" id="createServiceModal" tabindex="-1" role="dialog" aria-labelledby="createServiceModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -82,7 +94,7 @@ $stmt->close();
     </div>
 </div>
 
-<!-- Update Service Modal -->
+<!-- UPDATE SERVICE MODAL -->
 <div class="modal fade" id="updateServiceModal" tabindex="-1" role="dialog" aria-labelledby="updateServiceModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -94,7 +106,9 @@ $stmt->close();
             </div>
             <div class="modal-body">
                 <form id="updateServiceForm">
+                    <!-- HIDDEN ID FIELD -->
                     <input type="hidden" id="updateServiceId" name="service_id">
+                    
                     <div class="form-group">
                         <label for="updateServiceName">Service Name</label>
                         <input type="text" class="form-control" id="updateServiceName" name="service_name" required>
@@ -115,8 +129,12 @@ $stmt->close();
 </div>
 
 <script>
-    document.getElementById('saveService').addEventListener('click', function() {
-        const formData = new FormData(document.getElementById('createServiceForm'));
+// Wrap in jQuery document.ready to ensure elements are loaded
+$(document).ready(function() {
+
+    // CREATE SERVICE
+    $('#saveService').on('click', function() {
+        var formData = new FormData(document.getElementById('createServiceForm'));
         fetch('controller/save_service.php', {
             method: 'POST',
             body: formData
@@ -148,21 +166,29 @@ $stmt->close();
         });
     });
 
-    document.getElementById('updateServiceModal').addEventListener('show.bs.modal', function(event) {
-        const button = event.relatedTarget;
-        const id = button.getAttribute('data-id');
-        const name = button.getAttribute('data-name');
-        const description = button.getAttribute('data-description');
-        const price = button.getAttribute('data-price');
+    // TRIGGER UPDATE MODAL + PREFILL FIELDS
+    $('#updateServiceModal').on('show.bs.modal', function(event) {
+        var button     = $(event.relatedTarget);
+        var id         = button.data('id');
+        var name       = button.data('name');
+        var desc       = button.data('description');
+        var price      = button.data('price');
 
-        document.getElementById('updateServiceId').value = id;
-        document.getElementById('updateServiceName').value = name;
-        document.getElementById('updateServiceDescription').value = description;
-        document.getElementById('updateServicePrice').value = price;
+        $('#updateServiceId').val(id);
+        $('#updateServiceName').val(name);
+        $('#updateServiceDescription').val(desc);
+        $('#updateServicePrice').val(price);
     });
 
-    document.getElementById('updateService').addEventListener('click', function() {
-        const formData = new FormData(document.getElementById('updateServiceForm'));
+    // UPDATE SERVICE
+    $('#updateService').on('click', function() {
+        var formData = new FormData(document.getElementById('updateServiceForm'));
+
+        // Debug check – see if ID is present
+        // for (var pair of formData.entries()) {
+        //     console.log(pair[0]+ ': ' + pair[1]);
+        // }
+
         fetch('controller/update_service.php', {
             method: 'POST',
             body: formData
@@ -194,48 +220,51 @@ $stmt->close();
         });
     });
 
-    function deleteService(serviceId) {
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                fetch('controller/delete_service.php', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ id: serviceId })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Deleted',
-                            text: data.message
-                        }).then(() => {
-                            location.reload();
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: data.message
-                        });
-                    }
-                })
-                .catch(error => {
+});
+
+// DELETE SERVICE
+function deleteService(serviceId) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch('controller/delete_service.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: serviceId })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Deleted',
+                        text: data.message
+                    }).then(() => {
+                        location.reload();
+                    });
+                } else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',
-                        text: 'An error occurred while deleting the service.'
+                        text: data.message
                     });
+                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'An error occurred while deleting the service.'
                 });
-            }
-        });
-    }
+            });
+        }
+    });
+}
 </script>

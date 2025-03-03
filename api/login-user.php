@@ -1,6 +1,7 @@
 <?php
 header("Content-Type: application/json; charset=UTF-8");
 require '../config/config.php';
+require_once '../function/SMS.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(['status' => 'error', 'message' => 'Invalid request method']);
@@ -52,11 +53,28 @@ if ($password !== $user['password']) {
 
 if(1 != $user['status']){
 
-    echo json_encode([
-        "status" => "success",
-        "message" => "Login successful!",
-        "user_id" => $user['id']
-    ]);
+    $otp = rand(100000, 999999);
+    $message = "Your OTP code is: $otp. This code is valid for 5 minutes.";
+
+    $sms = new SMS();
+    $response = $sms->sendSMS($user['mobile_number'], $message);
+
+    if ($response && isset($response['message']) && $response['message'] == 'SMS sent successfully') {
+
+        echo json_encode([
+            "status" => "success",
+            "message" => "Login successful!",
+            "user_id" => $user['id'],
+            "otp" => $otp
+        ]);
+    } else {
+        echo json_encode([
+            "status" => "error",
+            "message" => "Failed to send OTP."
+        ]);
+    }
+
+
 }else{
     echo json_encode(
         ["status" => "error",
